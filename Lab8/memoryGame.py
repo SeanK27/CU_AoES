@@ -2,11 +2,34 @@ import time
 from machine import Pin
 import random
 
-buttonFlag = -1
+
+#creat level definition
+global level
+level = 0 #start the program at level 0
+
+global speed 
+speed = 2 #start the program at 2second 
+
+#creat button flags
+global buttonFlag0
+global buttonFlag1
+global buttonFlag2 
+global buttonFlag3
+
+buttonFlag0 = 0
+buttonFlag1 = 0
+buttonFlag2 = 0
+buttonFlag3 = 0
+
+
+#global debounceTime 
 debounceTime = 0
 
-Random_LED = 0 #random LED turned on
-Score = 0 # start the player with a score of 0
+global Random_LED 
+Random_LED = 0  #random LED turned on
+
+global Score # start the player with a score of 0
+Score = 0 
 
 # Pin definititions
 buttonPin = [28, 27, 26, 22]
@@ -24,35 +47,37 @@ ledPin2 = Pin(ledPin[2], Pin.OUT)
 ledPin3 = Pin(ledPin[3], Pin.OUT)
 
 # Interrupt Definitions
-def button0Pressed(buttonPin0):
+def button0Pressed(buttonPin0,_):
+#def button0Pressed(buttonPin0,_):
     print("button 0")
-    global buttonFlag, debounceTime
+    global debounceTime, buttonFlag0
     if(time.ticks_ms() - debounceTime) > 500:
-        buttonFlag = 0
-        debounce_time=time.ticks_ms()
+        buttonFlag0 = 1
+        debounceTime=time.ticks_ms()
 
-def button1Pressed(buttonPin1):
+def button1Pressed(buttonPin1,_):
     print("button 1")
-    global buttonFlag, debounceTime
+    global debounceTime, buttonFlag1
     if(time.ticks_ms() - debounceTime) > 500:
-        buttonFlag = 1
-        debounce_time=time.ticks_ms()
+        buttonFlag1 = 1
+        debounceTime=time.ticks_ms()
 
-def button2Pressed(buttonPin2):
+def button2Pressed(buttonPin2,_):
     print("button 2")
-    global buttonFlag, debounceTime
+    global debounceTime, buttonFlag2
     if(time.ticks_ms() - debounceTime) > 500:
-        buttonFlag = 2
-        debounce_time=time.ticks_ms()
+        buttonFlag2 = 1
+        debounceTime=time.ticks_ms()
 
-def button3Pressed(buttonPin3):
+def button3Pressed(buttonPin3,_):
     print("button 3")
-    global buttonFlag, debounceTime
+    global debounceTime, buttonFlag3
     if(time.ticks_ms() - debounceTime) > 500:
-        buttonFlag = 3
-        debounce_time=time.ticks_ms()
+        buttonFlag3 = 1
+        debounceTime=time.ticks_ms()
 
 # Interrupt setup
+#buttonPin0.irq(trigger=Pin.IRQ_FALLING, handler = button0Pressed)
 buttonPin0.irq(trigger=Pin.IRQ_FALLING, handler = button0Pressed)
 buttonPin1.irq(trigger=Pin.IRQ_FALLING, handler = button1Pressed)
 buttonPin2.irq(trigger=Pin.IRQ_FALLING, handler = button2Pressed)
@@ -79,7 +104,19 @@ while True:
         print("LED 3")
         ledPin3.on()
 
-    # time.sleep(200) #delay for 2 second
+
+    #check for the level to know how fast to itterate the buttons
+    if level == 0:
+        time.sleep(speed)
+
+    if level == 1:
+        time.sleep(speed)
+
+    if level == 2:
+        time.sleep(speed)
+
+    if level == 3:
+        time.sleep(speed)
 
     # turn off all LEDs
     ledPin0.off()
@@ -88,7 +125,43 @@ while True:
     ledPin3.off()
 
     #check if the correct button was pressed
-    if buttonFlag is Random_LED:
-        buttonFlag = -1 #clear the interrupt
+    if buttonFlag0 == 1:
+        buttonFlag0 = 0 #clear the interrupt
         Score = Score + 1
         print("Score: ", Score)
+
+    if buttonFlag1 == 1:
+        buttonFlag1 = 0 #clear the interrupt
+        Score = Score + 1
+        print("Score: ", Score)
+
+    if buttonFlag2 == 1:
+        buttonFlag2 = 0 #clear the interrupt
+        Score = Score + 1
+        print("Score: ", Score)
+
+    if buttonFlag3 == 1:
+        buttonFlag3 = 0 #clear the interrupt
+        Score = Score + 1
+        print("Score: ", Score)
+
+    #check the score and decrease the speed to increase the level
+    if Score == 10:
+        speed = 1.75 
+        print("you are on level 2")
+
+    if Score == 20:
+        speed = 1.5
+        print("you are on level 3")
+
+    if Score == 30:
+        speed = 1.25
+        print("you are on level 4")
+
+    if Score == 40:
+        speed = 1#last level of the game
+        print("you are on level 5")
+
+    if Score == 50:
+        print("you passed the game!!")
+        break
