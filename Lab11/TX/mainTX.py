@@ -1,25 +1,18 @@
-import machine
 import ir_tx
-from machine import Pin
-import uasyncio as asyncio
+import time
+import machine
 from ir_tx.nec import NEC
+from machine import Pin
 
-# Define an asynchronous function to handle IR transmission
-async def transmit_ir():
-    ir_transmitter = NEC(Pin(17, Pin.OUT, value=0)) # Initialize IR transmitter on Pin 17
-    addr = 0x02 # Device Address
+tx_pin = Pin(17,Pin.OUT,value=0)
+device_addr = 0x01
+transmitter = NEC(tx_pin)
 
-    commands = [0x01, 0x02, 0x03, 0x04] # List of data to send
- 
-    while True:
-        for command in commands:
-            ir_transmitter.transmit(addr, command)      # Send each command
-            print(f"IR signal transmitted: Addr {addr}, Command {command}")     # Print The transmitted command
-            await asyncio.sleep(3)      # Wait for 3 seconds before sending the next command
-            
-# Main function to run the transmitter
-async def main():
-    await transmit_ir() # Call the transmit function
+commands = [0x01,0x02,0x03,0x04]
 
 if __name__ == "__main__":
-    asyncio.run(main()) # Start the asynchronous event loop
+  while True:
+    for command in commands:
+      transmitter.transmit(device_addr,command)
+      print("COMMANDS",hex(command),"TRANSMITTED.")
+      time.sleep(3)
