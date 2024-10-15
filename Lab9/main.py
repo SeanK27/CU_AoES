@@ -1,11 +1,9 @@
 from machine import Pin, PWM
 from time import sleep
 
-pwm = PWM(Pin(13)) # Set the pin for the PWM object
-pwm1 = PWM(Pin(12))
-pwm2 = PWM(Pin(11))
-
-
+pwm = PWM(Pin(18)) # Set the pin for the PWM object
+pwm1 = PWM(Pin(13))
+pwm2 = PWM(Pin(12))
 
 
 pwm.freq(60) # Set the frequency of the PWM signal
