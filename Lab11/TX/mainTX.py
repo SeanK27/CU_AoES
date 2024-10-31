@@ -15,4 +15,4 @@ if __name__ == "__main__":
     for command in commands:
       transmitter.transmit(device_addr,command)
       print("COMMANDS",hex(command),"TRANSMITTED.")
-      time.sleep(3)
+      time.sleep(1)
