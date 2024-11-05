@@ -28,7 +28,6 @@ def motor1ON():
 
 def motor1OFF():
     print("motor off")
-    ain1_ph.high()
     ain2_en.duty_u16(0)
 
 
@@ -40,12 +39,10 @@ def motor1Toggle():
 # Motor 2 Control
 def motor2ON():
     print("motor on")
-    ain3_ph.low()
     ain4_en.duty_u16(pwm1)
 
 def motor2OFF():
     print("motor off")
-    ain3_ph.high()
     ain4_en.duty_u16(0)
     
 def motor2Toggle():
@@ -59,9 +56,9 @@ while True:
     motor1ON()
     motor2ON()
 
-    # time.sleep(1)
+    time.sleep(1)
 
-    # motor1OFF()
-    # motor2OFF()
+    motor1OFF()
+    motor2OFF()
 
-    # time.sleep(1)
+    time.sleep(1)
