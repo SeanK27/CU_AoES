@@ -1,7 +1,7 @@
 import math, time
 # load the MicroPython pulse-width-modulation module for driving hardware
 from machine import PWM, Pin, ADC
-import productionScripts.lib.buzzerLibrary as buzzerLibrary
+import MissionCode.productionScripts.lib.buzzerLibrary as buzzerLibrary
 
 # Pin objects
 ADCPin = Pin(27)
@@ -10,13 +10,15 @@ ADCPin = Pin(27)
 batteryADC = ADC(ADCPin)
 
 # PWM objects
-# buzzer = PWM(Pin(13))
-# buzzer.freq(440)            # 440 Hz
-# buzzer.duty_u16(30000)      # 100% duty cycle
+buzzer = PWM(Pin(12))
 
 
 while True:
     batteryVoltage = batteryADC.read_u16() * 3.3 / 65535
     print("Battery Voltage: ", batteryVoltage)
 
-    buzzerLibrary.buzzerOn(Pin(12), 440, 30000)
+    buzzerLibrary.buzzerOn(buzzer, 440, 30000)
+    
+    time.sleep(5)
+    
+    buzzerLibrary.buzzerOff(buzzer)
