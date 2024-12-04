@@ -8,6 +8,8 @@ from machine import PWM, Pin, ADC
 
 ##############
 
+# Global Variable
+controlMethod = 0   # 0 for IR, 1 for RF
 
 # Pin Definitions
 

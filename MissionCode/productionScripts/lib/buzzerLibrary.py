@@ -14,7 +14,7 @@ def buzzerOn(buzzer, freq, duty):
     duty: the duty cycle of the buzzer out of 65535 for volume (dont go above 35000)
     """
 
-# TODO Buzzer off Untested
+# FIXME: I have no clue why this doesn't shut off the buzzer. No need to shut off if BVM triggers though.
 def buzzerOff(buzzer):
     buzzer.deinit()
     
