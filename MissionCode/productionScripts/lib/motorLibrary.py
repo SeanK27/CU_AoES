@@ -9,10 +9,10 @@ from lib import pinDefinitions
 ##############
 
 # Motor 1 PWM Define
-motor1PWM = PWM(pinDefinitions.motor1Pin, freq = 2000, duty_u16 = 0)
+motor1PWM = PWM(pinDefinitions.motor1PWMPin, freq = 2000, duty_u16 = 0)
 
 # Motor 2 PWM Define
-motor2PWM = PWM(pinDefinitions.motor2Pin, freq = 2000, duty_u16 = 0)
+motor2PWM = PWM(pinDefinitions.motor2PWMPin, freq = 2000, duty_u16 = 0)
 
 
 # Motor Control
@@ -53,7 +53,7 @@ def motorONLeft(speed):
     print("motors on left")
     pinDefinitions.motor1.low()
     pinDefinitions.motor2.high()
-    motor1PWM.duty_u16(speed)
+    motor1PWM.duty_u16(0)               #FIXME
     motor2PWM.duty_u16(speed)
     
     """
@@ -66,7 +66,7 @@ def motorONRight(speed):
     pinDefinitions.motor1.high()
     pinDefinitions.motor2.low()
     motor1PWM.duty_u16(speed)
-    motor2PWM.duty_u16(speed)
+    motor2PWM.duty_u16(0)               #FIXME
     
     """
     This function turns on the left motor in the forward direction and the right motor in the backward direction given a speed.
@@ -75,17 +75,16 @@ def motorONRight(speed):
 
 # Motor Drive
 def motorDrive(direction, speed):
-    match direction:
-        case "Forward":
-            motorONForward(speed)
-        case "Backward":
-            motorONBackward(speed)
-        case "Left":
-            motorONLeft(speed)
-        case "Right":
-            motorONRight(speed)
-        case _:
-            motorOFF()
+    if direction == "Forward":
+        motorONForward(speed)
+    elif direction == "Backward":
+        motorOFF()                  #FIXME
+    elif direction == "Left":
+        motorONLeft(speed + 3000)
+    elif direction == "Right":
+        motorONRight(speed)
+    else:
+        motorOFF()
     
     """
     This function drives the robot in the specified direction at the specified speed.

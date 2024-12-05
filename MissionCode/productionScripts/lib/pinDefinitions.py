@@ -14,23 +14,25 @@ controlMethod = 0   # 0 for IR, 1 for RF
 # Pin Definitions
 
 # Motor Pins
-motor1Pin = 17
-motor2Pin = 18
+motor1Pin = 12
+motor1PWMPin = 13
+motor2Pin = 14
+motor2PWMPin = 15
 
 # Buzzer Pin
-buzzerPin = 27
+buzzerPin = 11
 
 # IR Receiver Pin
-irReceiverPin = 14
+irReceiverPin = 18
 
 # IR Transmitter Pin
-irTransmitterPin = 13
+irTransmitterPin = 18
 
 # RF Receiver Pin
-rfReceiverPin0 = 12
-rfReceiverPin1 = 15
-rfReceiverPin2 = 16
-rfReceiverPin3 = 19
+rfReceiverPin0 = 7
+rfReceiverPin1 = 6
+rfReceiverPin2 = 5
+rfReceiverPin3 = 4
 
 ######################
 

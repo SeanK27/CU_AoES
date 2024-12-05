@@ -26,13 +26,19 @@ def RFGetDir():
     
     # Read the state of each pin on the reciever.
     if pinDefinitions.rfReceiver0.value() == 1:
+        print("Forward")
         return "Forward"
     if pinDefinitions.rfReceiver1.value() == 1:
+        print("Backward")
         return "Backward"
     if pinDefinitions.rfReceiver1.value() == 1:
+        print("Right")
         return "Right"
     if pinDefinitions.rfReceiver1.value() == 1:
+        print("Left")
         return "Left"
+    else:
+        return "NULL"
     
     """
     Checks which button is pressed on the RF controller and returns a corresponding value.
